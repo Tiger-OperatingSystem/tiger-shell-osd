@@ -85,7 +85,7 @@ function display-text() {
    return ${?};
 }
 
-function undefined-progress() {
+function pulsate-progress() {
    while read -t 1 -r data; do echo "$data"; done | \
      yad --center --borders=32 --width=480 --undecorated --no-buttons --auto-close \
           --text="${1}" --progress --pulsate --progress-text=""
