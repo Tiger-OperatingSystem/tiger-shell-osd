@@ -58,7 +58,10 @@ function display-text() {
    [ "${TIGER_DIALOG_AUTOCLOSE}" = "0" ] && autoclose=""
 
    local window_icon="--window-icon=text-x-generic"
-   [ ! -z "${4}" ] && window_icon="--window-icon=${4}"
+   [ ! -z "${4}" ] && { 
+     window_icon="--window-icon=${4}"
+     shift
+   }
 
    local buttons="--button=gtk-ok:0"
    [ "${4}" = "yes-no"    ] && buttons="--button=gtk-yes:1 --button=gtk-no:0"
