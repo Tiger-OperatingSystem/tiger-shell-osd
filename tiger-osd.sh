@@ -29,7 +29,7 @@ function message() {
 
    local window_icon="--window-icon=dialog-messages"
    [ ! -z "${3}" ] && window_icon="--window-icon=${3}"
-
+   
    local buttons="--button=gtk-ok:0"
    [ "${4}" = "yes-no"    ] && buttons="--button=gtk-yes:1 --button=gtk-no:0"
    [ "${4}" = "no-yes"    ] && buttons="--button=gtk-no:0 --button=gtk-yes:1"
@@ -58,10 +58,10 @@ function display-text() {
    [ "${TIGER_DIALOG_AUTOCLOSE}" = "0" ] && autoclose=""
 
    local window_icon="--window-icon=text-x-generic"
-   [ ! -z "${4}" ] && { 
-     window_icon="--window-icon=${4}"
-     shift
-   }
+   [ "${TIGER_DIALOG_ICON}" = "0" ] && window_icon="--window-icon=${TIGER_DIALOG_ICON}"
+   
+   local description_spacer=""
+   [ ! -z "${2}" ] && description_spacer="\n"
 
    local buttons="--button=gtk-ok:0"
    [ "${4}" = "yes-no"    ] && buttons="--button=gtk-yes:1 --button=gtk-no:0"
@@ -70,7 +70,7 @@ function display-text() {
    [ "${4}" = "close"     ] && buttons="--button=gtk-close:0 "
    [ "${4}" = "ok"        ] && buttons="--button=gtk-ok:0 "
    [ "${4}" = "cancel"    ] && buttons="--button=gtk-cancel:0 "
-   [ "${3}" = "none"      ] && {
+   [ "${4}" = "none"      ] && {
      buttons="--no-buttons"
      [ ! "${TIGER_DIALOG_SHOW_TITLE}" = "1" ] && {
        autoclose="--close-on-unfocus"
@@ -78,8 +78,8 @@ function display-text() {
    }
 
    sed '1s/.*/\n&/' "${3}" | \
-      yad --center --borders=32 --width=800 --height=480 "${window_icon}" --title="${TIGER_DIALOG_TITLE}" ${undecorated}  \
-          --text="<big><b>${1}</b></big>\n${2}" --fixed "${icon}" ${autoclose} --margins=32 --wrap ${buttons} --listen    \
+      yad --center --borders=32 --width=800 --height=480 "${window_icon}" --title="${TIGER_DIALOG_TITLE}" ${undecorated}          \
+          --text="<big><b>${1}</b></big>\n${2}${description_spacer}" --fixed ${autoclose} --margins=32 --wrap ${buttons} --listen \
           --text-info --image-on-top
 
    return ${?};
