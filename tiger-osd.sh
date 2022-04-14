@@ -17,7 +17,7 @@ function input() {
    return ${?}
 }
 
-function show-message() {
+function message() {
    local undecorated="--undecorated"
    [ "${TIGER_DIALOG_SHOW_TITLE}" = "1" ] && undecorated=""
 
@@ -35,6 +35,8 @@ function show-message() {
    [ "${4}" = "no-yes"    ] && buttons="--button=gtk-no:0 --button=gtk-yes:1"
    [ "${4}" = "cancel-ok" ] && buttons=""
    [ "${4}" = "close"     ] && buttons="--button=gtk-close:0 "
+   [ "${4}" = "ok"        ] && buttons="--button=gtk-ok:0 "
+   [ "${4}" = "cancel"    ] && buttons="--button=gtk-cancel:0 "
    [ "${4}" = "none"      ] && {
      buttons="--no-buttons"
      [ ! "${TIGER_DIALOG_SHOW_TITLE}" = "1" ] && {
@@ -59,10 +61,12 @@ function display-text() {
    [ ! -z "${4}" ] && window_icon="--window-icon=${4}"
 
    local buttons="--button=gtk-ok:0"
-   [ "${3}" = "yes-no"    ] && buttons="--button=gtk-yes:0 --button=gtk-no:1"
-   [ "${3}" = "no-yes"    ] && buttons="--button=gtk-no:1 --button=gtk-yes:0"
-   [ "${3}" = "cancel-ok" ] && buttons=""
-   [ "${3}" = "close"     ] && buttons="--button=gtk-close:0"
+   [ "${4}" = "yes-no"    ] && buttons="--button=gtk-yes:1 --button=gtk-no:0"
+   [ "${4}" = "no-yes"    ] && buttons="--button=gtk-no:0 --button=gtk-yes:1"
+   [ "${4}" = "cancel-ok" ] && buttons=""
+   [ "${4}" = "close"     ] && buttons="--button=gtk-close:0 "
+   [ "${4}" = "ok"        ] && buttons="--button=gtk-ok:0 "
+   [ "${4}" = "cancel"    ] && buttons="--button=gtk-cancel:0 "
    [ "${3}" = "none"      ] && {
      buttons="--no-buttons"
      [ ! "${TIGER_DIALOG_SHOW_TITLE}" = "1" ] && {
@@ -96,8 +100,9 @@ function password()          { input "${1}" "${2}" "${3}" "H" "dialog-password" 
 function directory-picker()  { input "${1}" "${2}" "${3}" "DIR" "file-manager"       ; return ${?}; }
 function file-picker()       { input "${1}" "${2}" "${3}" "FL" "file-manager"        ; return ${?}; }
 function multi-file-picker() { input "${1}" "${2}" "${3}" "MFL" "file-manager"       ; return ${?}; }
-function show-warning()      { show-message "${1}" "${2}" "dialog-warning"           ; return ${?}; }
-function show-error()        { show-message "${1}" "${2}" "dialog-error" close       ; return ${?}; }
-function ask()               { show-message "${1}" "${2}" "dialog-question" "no-yes" ; return ${?}; }
+function show-message()      { message "${1}" "${2}" "" }
+function show-warning()      { message "${1}" "${2}" "dialog-warning"           ; return ${?}; }
+function show-error()        { message "${1}" "${2}" "dialog-error" close       ; return ${?}; }
+function ask()               { message "${1}" "${2}" "dialog-question" "no-yes" ; return ${?}; }
 
 # -------------------------------------------------------------------------------
