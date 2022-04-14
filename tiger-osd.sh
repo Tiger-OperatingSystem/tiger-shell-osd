@@ -105,7 +105,7 @@ function multi-file-picker() { input "${1}" "${2}" "${3}" "MFL" "file-manager"  
 
 function show-message()      { message "${1}" "${2}" ""                "ok"     ; return ${?}; }
 function show-warning()      { message "${1}" "${2}" "dialog-warning"  "ok"     ; return ${?}; }
-function show-error()        { message "${1}" "${2}" "dialog-error"    "close"  ; return ${?}; }
+function show-error()        { message "${1}" "${2}" "dialog-error"    "close"  ; exit   ${?}; }
 function ask()               { message "${1}" "${2}" "dialog-question" "no-yes" ; return ${?}; }
 
 # -----------------------------------------------------------------------------------------------------
