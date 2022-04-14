@@ -94,15 +94,18 @@ function progress() {
           --text="${1}" --progress --progress-text=""
 }
 
-# -------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
 
-function password()          { input "${1}" "${2}" "${3}" "H" "dialog-password"      ; return ${?}; }
-function directory-picker()  { input "${1}" "${2}" "${3}" "DIR" "file-manager"       ; return ${?}; }
-function file-picker()       { input "${1}" "${2}" "${3}" "FL" "file-manager"        ; return ${?}; }
-function multi-file-picker() { input "${1}" "${2}" "${3}" "MFL" "file-manager"       ; return ${?}; }
-function show-message()      { message "${1}" "${2}" "" }
-function show-warning()      { message "${1}" "${2}" "dialog-warning"           ; return ${?}; }
-function show-error()        { message "${1}" "${2}" "dialog-error" close       ; return ${?}; }
+function password()          { input "${1}" "${2}" "${3}" "H" "dialog-password" ; return ${?}; }
+function directory-picker()  { input "${1}" "${2}" "${3}" "DIR" "file-manager"  ; return ${?}; }
+function file-picker()       { input "${1}" "${2}" "${3}" "FL" "file-manager"   ; return ${?}; }
+function multi-file-picker() { input "${1}" "${2}" "${3}" "MFL" "file-manager"  ; return ${?}; }
+
+# -----------------------------------------------------------------------------------------------------
+
+function show-message()      { message "${1}" "${2}" ""                "ok"     ; return ${?}; }
+function show-warning()      { message "${1}" "${2}" "dialog-warning"  "ok"     ; return ${?}; }
+function show-error()        { message "${1}" "${2}" "dialog-error"    "close"  ; return ${?}; }
 function ask()               { message "${1}" "${2}" "dialog-question" "no-yes" ; return ${?}; }
 
-# -------------------------------------------------------------------------------
+# -----------------------------------------------------------------------------------------------------
